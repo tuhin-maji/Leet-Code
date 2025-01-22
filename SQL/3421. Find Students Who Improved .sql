@@ -68,3 +68,15 @@ with ranked_data as (
 select distinct student_id, subject, first_score, latest_score
 from ranked_data
 where first_score<latest_score
+
+--Alternate Solution
+
+# Write your MySQL query statement below
+with ranked_data as (
+    select student_id, subject, first_value(score) over(partition by student_id, subject order by exam_date) as first_score,
+    last_value(score) over(partition by student_id, subject order by exam_date range between current row and unbounded following) as latest_score
+    from Scores
+)
+select distinct student_id, subject, first_score, latest_score
+from ranked_data
+where first_score<latest_score
