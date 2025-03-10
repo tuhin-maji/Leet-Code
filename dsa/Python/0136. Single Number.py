@@ -20,10 +20,23 @@ Example 3:
 Input: nums = [1]
 Output: 1
 """
-
+#Approach-1
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         result=0
         for x in nums:
             result=result^x
         return result
+#Approach-2:
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        freq_map = {}
+        for i in range(len(nums)):
+            if nums[i] in freq_map:
+                freq_map[nums[i]]+=1
+            else:
+                freq_map[nums[i]]=1
+        for num in freq_map:
+            if freq_map[num]==1:
+                return num
+        
