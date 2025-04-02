@@ -51,3 +51,21 @@ class Solution:
             return True
         else:
             return False
+
+#Approach-2
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        valid = [('(',')'),('{','}'),('[',']')]
+        close_brackets = [')',']','}']
+        stack = []
+        for i in range(len(s)):
+            if len(stack)>0 and s[i] in close_brackets:
+                if (stack[-1], s[i]) in valid:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(s[i])
+        return len(stack)==0
+
